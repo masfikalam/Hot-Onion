@@ -1,0 +1,9 @@
+header{
+    background-image: url('./bannerbg.png');
+    background-position: center;
+    text-align: center;
+}
+header img{
+    margin: 50px 0;
+    max-width: 400px;
+}
