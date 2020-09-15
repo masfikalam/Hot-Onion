@@ -1,14 +1,15 @@
-import React from 'react';
-import './Navbar.css'
+import React, { useContext } from 'react';
+import './Navbar.css';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import logo from './logo.png';
-import cartIcon from './cart.png'
-import { useContext } from 'react';
-import {CartContext} from '../../App'
+import cartIcon from './cart.png';
+import {CartContext, UserContext} from '../../App';
 import { Link } from 'react-router-dom';
 
 const TopNav = () => {
     const [cart] = useContext(CartContext);
+    const [user, setUser] = useContext(UserContext);
+
     const totalDish = cart.reduce((sum, dish) => sum + dish.count, 0)
     
     return (
@@ -28,9 +29,19 @@ const TopNav = () => {
                                 <img src={cartIcon} alt="Cart"/>
                             </Button>
                         </Link>
-                        <Link to="login">
-                            <Button variant="danger">Sign Up</Button>
-                        </Link>
+                        {
+                            user.signed ?
+                            <Button onClick={() => setUser({
+                                signed: false,
+                                name: '',
+                                email: '',
+                                password: '',
+                                message: ''
+                            })} variant="danger">Sign Out, {user.name}</Button> : 
+                            <Link to="login">
+                                <Button variant="danger">Sign Up</Button>
+                            </Link>
+                        }
                     </Nav>
                 </Navbar.Collapse>
             </Container>

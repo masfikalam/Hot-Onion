@@ -1,0 +1,14 @@
+#thanks .bikeFlow{
+    overflow: hidden;
+}
+#thanks img#bike {
+    animation: ride 5s infinite;
+}
+@keyframes ride{
+    0%{
+        transform: translateX(-180%);
+    }
+    100%{
+        transform: translateX(200%);
+    }
+}
