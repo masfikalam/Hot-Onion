@@ -5,6 +5,7 @@ import { UserContext } from '../../App';
 
 const PrivateRoute = ({children, ...rest}) => {
     const [user] = useContext(UserContext);
+    
     return (
         <Route {...rest} render={({ location }) =>
         user.signed ?

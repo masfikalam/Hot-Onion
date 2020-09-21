@@ -11,6 +11,7 @@ firebase.initializeApp(firebaseConfig);
 const Login = () => {
     const [user, setUser] = useContext(UserContext);
     const [newUser, setNewUser] = useState(false);
+    const [validForm, setValidForm] = useState(true);
     const history = useHistory();
     const location = useLocation();
     const {from} = location.state || {from:{pathname:"/"}};
@@ -41,12 +42,24 @@ const Login = () => {
     const handleBlur = (e) => {
         const optUser = {...user};
         optUser[e.target.name] = e.target.value;
+        // confirming same password
+        if(e.target.name === 'confirm'){
+            if(e.target.value !== user.password){
+                optUser.message = "Password Didn't Match";
+                setValidForm(false);
+            }
+            else{
+                optUser.message = '';
+                setValidForm(true);
+            }
+        }
         setUser(optUser)
     }
     
     const subForm = (e) => {
         if (newUser){
-            // email sign in
+            if(validForm) {
+                // email sign in
                 firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
                 .then(() => {
                     const optUser = {
@@ -64,6 +77,7 @@ const Login = () => {
                     optUser.message = error.message;
                     setUser(optUser)
                 });
+            }
         }
         if (!newUser) {
             // email login
@@ -98,8 +112,6 @@ const Login = () => {
         });
     }
 
-    console.log(user)
-
     return (
         <Container id="login" className="py-5 text-center">
             <Row className="align-items-center">
@@ -117,7 +129,7 @@ const Login = () => {
 
                         <FormControl onBlur={handleBlur} name="password" type="password" placeholder="Your Password" className="my-3 bg-light" required />
 
-                        {newUser && <FormControl type="password" placeholder="Confirm Password" className="my-3 bg-light" required />}
+                        {newUser && <FormControl onBlur={handleBlur} type="password" name="confirm" placeholder="Confirm Password" className="my-3 bg-light" required />}
 
                         
                         <Button variant="success" type="submit">{newUser ? 'Sign Up' : 'Login'}</Button>

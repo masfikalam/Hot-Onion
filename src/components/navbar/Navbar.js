@@ -38,7 +38,7 @@ const TopNav = () => {
                                 password: '',
                                 message: ''
                             })} variant="danger">Sign Out, {user.name}</Button> : 
-                            <Link to="login">
+                            <Link to="/login">
                                 <Button variant="danger">Sign Up</Button>
                             </Link>
                         }
