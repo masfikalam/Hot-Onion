@@ -112,8 +112,6 @@ const Login = () => {
         });
     }
 
-    console.log(user, firebase.auth().currentUser)
-
     return (
         <Container id="login" className="py-5 text-center">
             <Row className="align-items-center">
