@@ -112,6 +112,8 @@ const Login = () => {
         });
     }
 
+    console.log(user, firebase.auth().currentUser)
+
     return (
         <Container id="login" className="py-5 text-center">
             <Row className="align-items-center">
@@ -134,29 +136,16 @@ const Login = () => {
                         
                         <Button variant="success" type="submit">{newUser ? 'Sign Up' : 'Login'}</Button>
                     </Form>
-                    {
-                        newUser ? 
-                        <span className="text-primary mt-4 d-block" style={{cursor: 'pointer'}} onClick={()=>{
-                            setNewUser(false);
-                            setUser({
-                                signed: false,
-                                name: '',
-                                email: '',
-                                password: '',
-                                message: ''
-                              });
-                        }}>I have an account</span> :
-                        <span className="text-primary mt-4 d-block" style={{cursor: 'pointer'}} onClick={()=>{
-                            setNewUser(true);
-                            setUser({
-                                signed: false,
-                                name: '',
-                                email: '',
-                                password: '',
-                                message: ''
-                              });
-                        }}>I am new here</span>
-                    }
+                    <span className="text-primary mt-4 d-block" style={{cursor: 'pointer'}} onClick={()=>{
+                        setNewUser(!newUser);
+                        setUser({
+                            signed: false,
+                            name: '',
+                            email: '',
+                            password: '',
+                            message: ''
+                        });
+                    }}>{newUser ? 'I have an account' : 'I am new here'}</span>
                 </Col>
             </Row>
             <h6 className="text-danger text-center mt-4">{user.message}</h6>

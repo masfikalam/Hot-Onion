@@ -41,7 +41,9 @@ function App() {
             <PrivateRoute path="/checkout">
               <Checkout />
             </PrivateRoute>
-            <Route path="/thanks" component={Thanks} />
+            <PrivateRoute path="/thanks">
+              <Thanks />
+            </PrivateRoute>
             <Route path="/:dish">
               <Header />
               <Dish />
