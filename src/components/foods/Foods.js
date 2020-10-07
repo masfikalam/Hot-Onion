@@ -11,6 +11,7 @@ const lunch = fakeFoods.filter(foods => foods.catagory === 'lunch')
 const dinner = fakeFoods.filter(foods => foods.catagory === 'dinner')
 
 const Foods = () => {
+    document.title = 'Hot Onion';
     const [cart] = useContext(CartContext);
 
     const mapFoods = category => {

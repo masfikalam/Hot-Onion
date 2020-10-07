@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
-import { Button, Col, Container, Form, FormControl, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Button, Col, Container, FormControl, Row } from 'react-bootstrap';
 import { CartContext, UserContext } from '../../App';
+import Payment from '../Payment/Payment';
 
 const Checkout = () => {
+    document.title = 'Hot Onion - Checkout';
     const [cart, setCart] = useContext(CartContext);
     const [user] = useContext(UserContext);
     const dishes = cart.reduce((sum, dish) => sum + dish.count, 0);
@@ -39,15 +40,13 @@ const Checkout = () => {
                 </Col>
                 <Col md={6}>
                     {dishes>0 &&
-                    <Form>
+                    <div>
                         <h3 className="my-4">Your Details -</h3>
-                        <FormControl type="text" placeholder="Your Name" value={user.name} className="my-3 bg-light" required />
-                        <FormControl type="email" placeholder="Your Email" value={user.email} className="my-3 bg-light" required />
+                        <FormControl type="text" placeholder="Your Name" readOnly value={user.name} className="my-3 bg-light" required />
+                        <FormControl type="email" placeholder="Your Email" readOnly value={user.email} className="my-3 bg-light" required />
                         <FormControl type="text" placeholder="Your Address" className="my-3 bg-light" required />
-                        <Link to="/thanks">
-                            <Button type="submit" variant="success">Place Order</Button>
-                        </Link>
-                    </Form>}
+                        <Payment />
+                    </div>}
                 </Col>
             </Row>
         </Container>

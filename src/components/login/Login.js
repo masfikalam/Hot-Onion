@@ -9,6 +9,7 @@ import { UserContext } from '../../App';
 firebase.initializeApp(firebaseConfig);
 
 const Login = () => {
+    document.title = 'Hot Onion - Login';
     const [user, setUser] = useContext(UserContext);
     const [newUser, setNewUser] = useState(false);
     const [validForm, setValidForm] = useState(true);
@@ -117,7 +118,7 @@ const Login = () => {
             <Row className="align-items-center">
                 <Col md={6}>
                     <h3>Sign in with Google</h3>
-                    <Button variant="success" className="my-3" onClick={googleSingIn}>Sing In</Button>
+                    <Button variant="success" className="my-3" onClick={googleSingIn}>Sign In</Button>
                 </Col>
                 <Col md={6}>
                     <Form onSubmit={subForm}>

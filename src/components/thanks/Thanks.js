@@ -6,9 +6,9 @@ import bike from './bike.png';
 import { CartContext } from '../../App';
 
 const Thanks = () => {
+    document.title = 'Hot Onion';
     const [cart] = useContext(CartContext);
     const dishes = cart.reduce((sum, dish) => sum + dish.count, 0);
-
     return (
         <Container id="thanks" className="py-5">
                 {
@@ -20,7 +20,7 @@ const Thanks = () => {
                         <Col md={6} className="text-center bikeFlow">
                         <img id="bike" src={bike} alt="bike" className="w-50" />
                         <h3 className="my-5">Delivering {dishes} items to your home.</h3>
-                        {cart.map(dish => <div className="bg-light p-3">
+                        {cart.map(dish => <div key={dish.id} className="bg-light p-3">
                             <h4 className="text-dark">{dish.name}, {dish.count} Plate</h4>
                         </div> )}
                         </Col>
