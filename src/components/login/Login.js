@@ -5,6 +5,7 @@ import { Button, Col, Container, Form, FormControl, Row } from 'react-bootstrap'
 import firebaseConfig from './FireConfig';
 import { useHistory, useLocation } from 'react-router-dom';
 import { UserContext } from '../../App';
+import './Login.css'
 
 firebase.initializeApp(firebaseConfig);
 
@@ -114,41 +115,42 @@ const Login = () => {
     }
 
     return (
-        <Container id="login" className="py-5 text-center">
-            <Row className="align-items-center">
-                <Col md={6}>
-                    <h3>Sign in with Google</h3>
-                    <Button variant="success" className="my-3" onClick={googleSingIn}>Sign In</Button>
-                </Col>
-                <Col md={6}>
-                    <Form onSubmit={subForm}>
-                        <h3 className="my-4">{newUser ? 'Sign Up' : 'Or Login'}</h3>
+        <section id="login">
+            <Container className="py-5 text-center">
+                <Row className="align-items-center">
+                    <Col md={6}>
+                        <h3><b>Sign in with Google</b></h3>
+                        <Button variant="primary" className="my-3" onClick={googleSingIn}>Sign In</Button>
+                    </Col>
+                    <Col md={6}>
+                        <Form onSubmit={subForm}>
+                            <h3 className="my-4"><b>{newUser ? 'Sign Up' : 'Or Login'}</b></h3>
 
-                        {newUser && <FormControl onBlur={handleBlur} name="name" type="text" placeholder="Your Name" className="my-3 bg-light" required />}
+                            {newUser && <FormControl onBlur={handleBlur} name="name" type="text" placeholder="Your Name" className="my-3 bg-light" required />}
 
-                        <FormControl onBlur={handleBlur} name="email" type="email" placeholder="Your Email" className="my-3 bg-light" required />
+                            <FormControl onBlur={handleBlur} name="email" type="email" placeholder="Your Email" className="my-3 shadow" required />
 
-                        <FormControl onBlur={handleBlur} name="password" type="password" placeholder="Your Password" className="my-3 bg-light" required />
+                            <FormControl onBlur={handleBlur} name="password" type="password" placeholder="Your Password" className="my-3 shadow" required />
 
-                        {newUser && <FormControl onBlur={handleBlur} type="password" name="confirm" placeholder="Confirm Password" className="my-3 bg-light" required />}
+                            {newUser && <FormControl onBlur={handleBlur} type="password" name="confirm" placeholder="Confirm Password" className="my-3 bg-light" required />}
 
-                        
-                        <Button variant="success" type="submit">{newUser ? 'Sign Up' : 'Login'}</Button>
-                    </Form>
-                    <span className="text-primary mt-4 d-block" style={{cursor: 'pointer'}} onClick={()=>{
-                        setNewUser(!newUser);
-                        setUser({
-                            signed: false,
-                            name: '',
-                            email: '',
-                            password: '',
-                            message: ''
-                        });
-                    }}>{newUser ? 'I have an account' : 'I am new here'}</span>
+                            <Button variant="success" type="submit">{newUser ? 'Sign Up' : 'Login'}</Button>
+                        </Form>
+                        <span className="text-primary mt-4 d-block" style={{cursor: 'pointer'}} onClick={()=>{
+                            setNewUser(!newUser);
+                            setUser({
+                                signed: false,
+                                name: '',
+                                email: '',
+                                password: '',
+                                message: ''
+                            });
+                        }}><b>{newUser ? 'I have an account' : 'I am new here'}</b></span>
                 </Col>
             </Row>
             <h6 className="text-danger text-center mt-4">{user.message}</h6>
         </Container>
+        </section>
     );
 };
 

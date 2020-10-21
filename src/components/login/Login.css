@@ -1,0 +1,6 @@
+#login {
+    background: url('./loginBg.jpg');
+    background-position: center;
+    background-size: cover;
+    min-height: 90vh;
+}
