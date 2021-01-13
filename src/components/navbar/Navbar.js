@@ -1,28 +1,23 @@
 import React, { useContext } from 'react';
-import './Navbar.css';
+import { Button, Container, Nav, Navbar } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { UserContext} from '../../App';
+import { Link } from 'react-router-dom';
 import * as firebase from "firebase/app";
 import "firebase/auth";
-import { Button, Container, Nav, Navbar } from 'react-bootstrap';
-import logo from './logo.png';
 import cartIcon from './cart.png';
-import {CartContext, UserContext} from '../../App';
-import { Link } from 'react-router-dom';
+import logo from './logo.png';
+import './Navbar.css';
 
 const TopNav = () => {
-    const [cart] = useContext(CartContext);
+    const cart = useSelector(state => state.cart);
     const [user, setUser] = useContext(UserContext);
     const totalDish = cart.reduce((sum, dish) => sum + dish.count, 0);
 
     // signing out
     function signOutAll(){
         firebase.auth().signOut()
-        .then(() => setUser({
-            signed: false,
-            name: '',
-            email: '',
-            password: '',
-            message: ''
-        }))
+        .then(() => setUser({}))
         .catch(error => console.log(error))   
     }
     
@@ -37,7 +32,7 @@ const TopNav = () => {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="ml-auto align-items-center">
-                        <Link to="/checkout">
+                        <Link to="/cart">
                             <Button variant="transparent btn-sm my-3 my-md-0 mx-3">
                                 <h6 className="m-0 p-0">{totalDish}</h6>
                                 <img src={cartIcon} alt="Cart"/>

@@ -4,3 +4,7 @@
     background-size: cover;
     min-height: 90vh;
 }
+#login #loginForm {
+    max-width: 400px;
+    margin: auto;
+}

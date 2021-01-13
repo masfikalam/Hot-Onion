@@ -12,49 +12,32 @@ import Checkout from './components/checkout/Checkout';
 import PrivateRoute from './components/login/PrivateRoute';
 import Login from './components/login/Login';
 import Thanks from './components/thanks/Thanks';
-export const CartContext = createContext();
+import Cart from './components/cart/Cart';
 export const UserContext = createContext();
 
 function App() {
-  const [cart, setCart] = useState([]);
-  const [user, setUser] = useState({
-    signed: false,
-    name: '',
-    email: '',
-    password: '',
-    message: ''
-  });
+  const [user, setUser] = useState({});
 
   return (
-    <CartContext.Provider value={[cart, setCart]}>
-      <UserContext.Provider value={[user, setUser]}>
-        <Router>
-          <TopNav />
-          <Switch>
-            <Route path="/" exact>
-              <Header />
-              <Foods />
-              <Features />
-              <Footer />
-            </Route>
-            <Route path="/login" component={Login} />
-            <PrivateRoute path="/checkout">
-              <Checkout />
-            </PrivateRoute>
-            <PrivateRoute path="/thanks">
-              <Thanks />
-            </PrivateRoute>
-            <Route path="/:dish">
-              <Header />
-              <Dish />
-            </Route>
-            <Route path="*">
-              <h1 className="text-center text-danger p-5">Dish Not Found</h1>
-            </Route>
-          </Switch>
-        </Router>
-      </UserContext.Provider>
-    </CartContext.Provider>
+    <UserContext.Provider value={[user, setUser]}>
+      <Router>
+        <TopNav />
+        <Switch>
+          <Route path="/" exact>
+            <Header /><Foods /><Features /><Footer />
+          </Route>
+          <Route path="/login" component={Login} />
+          <Route path="/cart" component={Cart} />
+          <PrivateRoute path="/checkout">
+            <Checkout />
+          </PrivateRoute>
+          <PrivateRoute path="/thanks">
+            <Thanks />
+          </PrivateRoute>
+          <Route path="/:dish" component={Dish} />
+        </Switch>
+      </Router>
+    </UserContext.Provider>
   );
 }
 

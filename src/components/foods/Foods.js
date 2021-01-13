@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import './Food.css'
 import { Card, Col, Row, Tab, Tabs, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { CartContext } from '../../App';
-import fakeFoods from '../../FakeFoods/FakeFoods'
+import fakeFoods from '../../FakeFoods/FakeFoods';
+import { useSelector } from 'react-redux';
+import './Food.css'
 
 // food categories
 const breakfast = fakeFoods.filter(foods => foods.catagory === 'breakfast')
@@ -11,8 +11,7 @@ const lunch = fakeFoods.filter(foods => foods.catagory === 'lunch')
 const dinner = fakeFoods.filter(foods => foods.catagory === 'dinner')
 
 const Foods = () => {
-    document.title = 'Hot Onion';
-    const [cart] = useContext(CartContext);
+    const cart = useSelector(state => state.cart);
 
     const mapFoods = category => {
         return (
@@ -52,8 +51,8 @@ const Foods = () => {
             </Tabs>
             {
                 cart.length>0 && 
-                <Link to="/checkout">
-                    <button className="btn btn-danger mt-4">Checkout</button>
+                <Link to="/cart">
+                    <button className="btn btn-danger mt-4">Review Cart</button>
                 </Link>
             }
         </Container>

@@ -1,26 +1,31 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
-import {CartContext} from '../../App';
 import { Link, useParams } from 'react-router-dom';
 import fakeFoods from '../../FakeFoods/FakeFoods';
+import { useDispatch } from 'react-redux';
 
 const Dish = () => {
-    const [cart, setCart] = useContext(CartContext);
     let { dish } = useParams();
-    const showDish = fakeFoods.find(food => food.id === dish)
+    const dispatch = useDispatch();
+    document.title = `Red Onion - ${dish}`;
+    const showDish = fakeFoods.find(food => food.id === dish);
+    const [disable, setDisable] = useState(false);
 
     // adjusting count
     const [count, setCount] = useState(1);
     const add = () => setCount(count+1);
-    const reduce = () => setCount(count-1);
-    if (count < 1) {setCount(1)}
+    const reduce = () => {
+        count === 1 ? setCount(1) : setCount(count-1);
+    };
 
     // add button
-    const [disable, setDisable] = useState(false);
-    function addToCart(id) {
+    function addToCart(dish) {
         setDisable(true);
         showDish.count = count;
-        setCart([...cart, showDish])
+        dispatch({
+            type: 'ADD_FOOD',
+            payload: { ...dish, count }
+        });
     };
     
     return (
@@ -31,9 +36,9 @@ const Dish = () => {
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet quos voluptates quis qui modi! Dignissimos molestias illum quos delectus distinctio eligendi mollitia recusandae vel! Voluptates iste quo dolorem inventore sapiente.</p>
                     <h3>${showDish && (showDish.price * count).toFixed(2)}</h3>
                     <div className="my-4">
-                        <button onClick={reduce}>-</button>
-                        <span className="mx-2" aria-readonly>{count}</span>
-                        <button onClick={add}>+</button>
+                        <button className="btn btn-light border" onClick={reduce}>-</button>
+                        <input className="w-25 text-center border-0" placeholder={count} type="text" readOnly />
+                        <button className="btn btn-light border" onClick={add}>+</button>
                     </div>
                 </Col>
                 <Col md="6">
@@ -43,7 +48,7 @@ const Dish = () => {
             <Link to="/">
                 <Button variant="primary">&lt; Back</Button>
             </Link>
-            <Button disabled={disable} onClick={()=>addToCart(showDish.id)} variant="danger" className="mx-2">{disable ? 'Added' : 'Add'}</Button>
+            <Button disabled={disable} onClick={() => addToCart(showDish)} variant="danger" className="mx-2">{disable ? 'Added' : 'Add'}</Button>
         </Container>
     );
 };

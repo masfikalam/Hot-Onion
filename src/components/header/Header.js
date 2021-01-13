@@ -4,6 +4,8 @@ import logo from './logo.png'
 import { Container } from 'react-bootstrap';
 
 const Header = () => {
+    document.title = 'Red Onion - Home';
+    
     return (
         <header className="py-5">
             <Container>
