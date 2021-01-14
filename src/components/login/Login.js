@@ -1,13 +1,9 @@
 import React, { useContext, useState } from 'react';
-import * as firebase from "firebase/app";
-import "firebase/auth";
-import { Button, Container, Form, FormControl } from 'react-bootstrap';
-import firebaseConfig from './FireConfig';
+import { firebase } from '../../Firebase/Firebase';
+import { Button, Form, FormControl } from 'react-bootstrap';
 import { useHistory, useLocation } from 'react-router-dom';
 import { UserContext } from '../../App';
-import './Login.css'
-
-firebase.initializeApp(firebaseConfig);
+import './Login.css';
 
 const Login = () => {
     document.title = 'Red Onion - Login';
@@ -92,27 +88,26 @@ const Login = () => {
     }
 
     return (
-        <section id="login">
-            <Container className="py-5 text-center">
-                <Form id="loginForm" onSubmit={subForm}>
-                    <h3 className="my-4"><b>{newUser ? 'Sign Up' : 'Or Login'}</b></h3>
-                    {
-                        newUser &&
-                        <FormControl name="name" type="text" placeholder="Your Name" className="my-3" required />
-                    }
-                    <FormControl name="email" type="email" placeholder="Your Email" className="my-3 shadow" required />
-                    <FormControl name="password" type="password" placeholder="Your Password" className="my-3 shadow" required />
-                    {
-                        newUser &&
-                        <FormControl type="password" name="confirm" placeholder="Confirm Password" className="my-3" required />
-                    }
-                    <Button variant="success" type="submit">{ newUser ? 'Sign Up' : 'Login' }</Button>
-                </Form>
-                <span className="text-primary btn mt-4" onClick={handleUser}>
+        <section id="login" className="py-5 text-center">
+            <Form id="loginForm" onSubmit={subForm}>
+                <h3 className="my-4"><b>{newUser ? 'Sign Up' : 'Login'}</b></h3>
+                {
+                    newUser &&
+                    <FormControl name="name" type="text" placeholder="Your Name" className="my-3" required />
+                }
+                <FormControl name="email" type="email" placeholder="Your Email" className="my-3 shadow" required />
+                <FormControl name="password" type="password" placeholder="Your Password" className="my-3 shadow" required />
+                {
+                    newUser &&
+                    <FormControl type="password" name="confirm" placeholder="Confirm Password" className="my-3" required />
+                }
+                <Button variant="success" type="submit">{ newUser ? 'Sign Up' : 'Login' }</Button>
+
+                <span className="d-block text-primary btn mt-4" onClick={handleUser}>
                     <b>{ newUser ? 'I have an account' : 'I am new here' }</b>
                 </span>
                 <h6 className="text-danger text-center mt-4">{user.message}</h6>
-            </Container>
+            </Form>
         </section>
     );
 };

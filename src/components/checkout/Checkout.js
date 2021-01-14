@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Container, FormControl } from 'react-bootstrap';
 import { UserContext } from '../../App';
-import Payment from '../Payment/Payment';
+import Payment from '../payment/Payment';
 
 const Checkout = () => {
     document.title = 'Red Onion - Checkout';

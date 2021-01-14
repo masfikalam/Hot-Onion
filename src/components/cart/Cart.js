@@ -7,11 +7,11 @@ const Cart = () => {
     document.title = 'Red Onion - Cart';
     const cart = useSelector(state => state.cart);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     // calculations
     const dishes = cart.reduce((sum, dish) => sum + dish.count, 0);
     const total = cart.reduce((sum, dish) => sum + (dish.price * dish.count), 0);
-    const history = useHistory();
 
     // remove dish
     function removeDish(id) {
@@ -31,15 +31,12 @@ const Cart = () => {
             <Row>
                 <Col md={6} className="text-center">
                     <h3>Total Dishes: <span className="text-danger">{dishes}</span></h3>
-                    {
-                        dishes > 0 &&
-                        <div className="mt-4 bg-dark text-white rounded text-left p-4">
-                            <h5>Total: ${total}</h5>
-                            <h5>Tax : $1.5</h5>
-                            <h5>Delivery Fee: $4.0</h5>
-                            <h5>Subotal: ${(total + 5.5).toFixed(2)}</h5>
-                        </div>
-                    }
+                    <div className="mt-4 bg-dark text-white rounded text-left p-4">
+                        <h5>Total: ${total}</h5>
+                        <h5>Tax : $1.5</h5>
+                        <h5>Delivery Fee: $4.0</h5>
+                        <h5>Subotal: ${(total + 5.5).toFixed(2)}</h5>
+                    </div>
                     <Link to="/checkout">
                         <Button variant="success" className="mt-5 btn-lg rounded shadow">Proceed Checkout</Button>
                     </Link>
@@ -48,7 +45,7 @@ const Cart = () => {
                     <h3>List of Dishes -</h3>
                     {
                         cart.map(dish =>
-                        <div className="my-4 shadow bg-light p-3" key={dish.id}>
+                        <div key={dish.id} className="my-4 shadow bg-light p-3">
                             <h4 className="text-danger">{dish.name}</h4>
                             <h5>Quantity: <span className="text-primary">{dish.count}</span></h5>
                             <h5>Price: <span className="text-success">${dish.price}</span></h5>

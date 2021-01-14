@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Button, Container, Nav, Navbar } from 'react-bootstrap';
+import { Button, Nav, Navbar } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { UserContext} from '../../App';
 import { Link } from 'react-router-dom';
@@ -22,32 +22,25 @@ const TopNav = () => {
     }
     
     return (
-        <Navbar collapseOnSelect bg="white" expand="md" variant="light" id="Navbar" sticky="top">
-            <Container fluid>
-                <Navbar.Brand>
-                    <Link to="/">
-                        <img src={logo} alt="Hot Onion"     width="150px" />
+        <Navbar className="px-2 px-sm-4 py-md-2 shadow" bg="white" expand="md" variant="light" id="Navbar" sticky="top">
+            <Link to="/" className="navbar-brand">
+                <img src={logo} alt="Hot Onion" width="150px" />
+            </Link>
+            <Nav className="ml-auto flex-row justify-content-center align-items-center">
+                <Link to="/cart" className="cartIcon">
+                    <Button variant="transparent btn-sm">
+                        <span id="number">{totalDish}</span>
+                        <img src={cartIcon} width="35px" alt="Cart"/>
+                    </Button>
+                </Link>
+                {
+                    user.signed ?
+                    <Button className="d-none d-sm-block ml-3" onClick={signOutAll} variant="danger">Sign Out, {user.name}</Button> : 
+                    <Link className="d-none d-sm-block ml-3" to="/login">
+                        <Button variant="danger">Sign In</Button>
                     </Link>
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="ml-auto align-items-center">
-                        <Link to="/cart">
-                            <Button variant="transparent btn-sm my-3 my-md-0 mx-3">
-                                <h6 className="m-0 p-0">{totalDish}</h6>
-                                <img src={cartIcon} alt="Cart"/>
-                            </Button>
-                        </Link>
-                        {
-                            user.signed ?
-                            <Button onClick={signOutAll} variant="danger">Sign Out, {user.name}</Button> : 
-                            <Link to="/login">
-                                <Button variant="danger">Sign Up</Button>
-                            </Link>
-                        }
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
+                }
+            </Nav>
         </Navbar>
     );
 };

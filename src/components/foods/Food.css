@@ -1,7 +1,17 @@
-#foods .h-100:hover {
-    background-color: #fff0f3;
+#foods .h-100 {
+    background-color: #fcf4e0;
     border-radius: 20px;
+}
+#foods .h-100:hover {
+    box-shadow: 0 0 1px 1px #e9004d;
 }
 #foods .link {
     text-decoration: none;
+}
+#foods .nav-tabs .nav-link {
+    border: none;
+}
+#foods .nav-tabs .nav-link.active {
+    color: #e9004d;
+    font-weight: bold;
 }

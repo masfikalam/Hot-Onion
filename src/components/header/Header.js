@@ -7,10 +7,10 @@ const Header = () => {
     document.title = 'Red Onion - Home';
     
     return (
-        <header className="py-5">
-            <Container>
+        <header className="py-4 py-sm-5">
+            <Container className="py-md-5">
                 <img src={logo} alt="Hot Onion" className="w-75" />
-                <h3 className="mt-3 mb-5">Best Food Waiting For Your Tummy</h3>
+                <h3 className="mt-5 ">Best Food Waiting For Your Tummy</h3>
             </Container>
         </header>
     );

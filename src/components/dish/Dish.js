@@ -1,54 +1,72 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
-import fakeFoods from '../../FakeFoods/FakeFoods';
 import { useDispatch } from 'react-redux';
+import './Dish.css';
+import { db } from '../../Firebase/Firebase';
 
 const Dish = () => {
-    let { dish } = useParams();
+    let { id } = useParams();
     const dispatch = useDispatch();
-    document.title = `Red Onion - ${dish}`;
-    const showDish = fakeFoods.find(food => food.id === dish);
+    const [dish, setDish] = useState({});
+    const [count, setCount] = useState(1);
     const [disable, setDisable] = useState(false);
+    document.title = `Red Onion - ${dish ? dish.name : 'Food'}`;
+
+    useEffect(() => {
+        db.collection("items").doc(id)
+        .onSnapshot(snapshot => {
+            setDish(snapshot.data());
+    })}, [id]);
 
     // adjusting count
-    const [count, setCount] = useState(1);
     const add = () => setCount(count+1);
-    const reduce = () => {
-        count === 1 ? setCount(1) : setCount(count-1);
-    };
+    const reduce = () => count === 1 ? setCount(1) : setCount(count-1);
 
     // add button
     function addToCart(dish) {
         setDisable(true);
-        showDish.count = count;
+        dish.count = count;
         dispatch({
             type: 'ADD_FOOD',
-            payload: { ...dish, count }
+            payload: { ...dish, id }
         });
     };
     
     return (
         <Container id="dish" className="py-5">
-            <Row className="align-items-center justify-content-center">
+            <h2 className="text-center mb-4">
+                Food : <span className="text-success">{dish.name}</span>
+            </h2>
+            <Row className="align-items-center">
+                <Col md="6" className="text-center mb-5 mb-md-0">
+                    <img src={dish.photo} alt={dish.name} className="w-75 my-3 img-fluid" />
+                </Col>
                 <Col md="6" className="text-left">
-                    <h1 className="text-success">{showDish && showDish.name}</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet quos voluptates quis qui modi! Dignissimos molestias illum quos delectus distinctio eligendi mollitia recusandae vel! Voluptates iste quo dolorem inventore sapiente.</p>
-                    <h3>${showDish && (showDish.price * count).toFixed(2)}</h3>
-                    <div className="my-4">
+                    <h4>You'll have -</h4>
+                    <div className="ingredients mt-3 mb-4">
+                        {
+                            dish.ingredients ?
+                            dish.ingredients.split(',').map(ing => 
+                            <span key={ing} className="m-1 px-3 py-2 rounded">{ing}</span>) :
+                            <span></span>
+                        }
+                    </div>
+
+                    <h4 className="mt-5">Price: 
+                        <span className="text-success"> ${(dish.price * count).toFixed(2)}</span>
+                    </h4>
+                    <div className="mt-3 mb-5">
                         <button className="btn btn-light border" onClick={reduce}>-</button>
-                        <input className="w-25 text-center border-0" placeholder={count} type="text" readOnly />
+                        <input style={{width: '50px'}} className="text-center border-0" placeholder={count} type="text" readOnly />
                         <button className="btn btn-light border" onClick={add}>+</button>
                     </div>
-                </Col>
-                <Col md="6">
-                    <img src={showDish && showDish.photo} alt={showDish && showDish.name} className="w-100 my-3" />
+                    <Link to="/">
+                        <Button variant="primary">&lt; Back</Button>
+                    </Link>
+                    <Button disabled={disable} onClick={() => addToCart(dish)} variant="danger" className="mx-2">{disable ? 'Added' : 'Add'}</Button>
                 </Col>
             </Row>
-            <Link to="/">
-                <Button variant="primary">&lt; Back</Button>
-            </Link>
-            <Button disabled={disable} onClick={() => addToCart(showDish)} variant="danger" className="mx-2">{disable ? 'Added' : 'Add'}</Button>
         </Container>
     );
 };

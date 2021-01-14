@@ -10,14 +10,11 @@ const CartReducer = ( state = { cart: [] }, action ) => {
                 ...state,
                 cart: state.cart.filter(food => food.id !== action.payload)
             };
-        // case 'UPDATE_TODO':
-        //     const { id, newLabel } = action.payload;
-        //     const newTodo = { id : id, label: newLabel };
-        //     const others = state.todos.filter(todo => todo.id !== id);
-        //     return {
-        //         ...state,
-        //         todos: [...others, newTodo]
-        //     };
+        case 'CLEAR_CART':
+            return {
+                ...state,
+                cart: []
+            };
         default:
             return state;
     };

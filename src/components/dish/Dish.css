@@ -1,0 +1,12 @@
+#dish .ingredients span {
+    background-color: #fcf4e0;
+    display: inline-block;
+}
+#dish .ingredients {
+    word-wrap: break-word;
+}
+@media (max-width: 500px) {
+    #dish h2{
+        font-size: 25px;
+    }
+}
