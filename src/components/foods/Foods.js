@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import Food from './Food';
 import './Food.css'
 
-
 const Foods = ({ foods }) => {
     const cart = useSelector(state => state.cart);
     
@@ -16,28 +15,34 @@ const Foods = ({ foods }) => {
 
     return (
         <Container id="foods" className="text-center py-5">
-            <Tabs className="d-flex justify-content-center border-0 d-block"  defaultActiveKey="all" id="uncontrolled-tab-example">
-                <Tab eventKey="breakfast" title="Breakfast">
-                    <Row className="mt-4">
-                        <Food category={breakfast} />
-                    </Row>
-                </Tab>
-                <Tab eventKey="lunch" title="Lunch">
-                    <Row className="mt-4">
-                        <Food category={lunch} />
-                    </Row>
-                </Tab>
-                <Tab eventKey="dinner" title="Dinner">
-                    <Row className="mt-4">
-                        <Food category={dinner} />
-                    </Row>
-                </Tab>
-                <Tab eventKey="all" title="All Foodes">
-                    <Row className="mt-4">
-                        <Food category={foods} />
-                    </Row>
-                </Tab>
-            </Tabs>
+            {
+                foods.length ?
+                <Tabs className="d-flex justify-content-center border-0 d-block"  defaultActiveKey="all" id="uncontrolled-tab-example">
+                    <Tab eventKey="breakfast" title="Breakfast">
+                        <Row className="mt-4">
+                            <Food category={breakfast} />
+                        </Row>
+                    </Tab>
+                    <Tab eventKey="lunch" title="Lunch">
+                        <Row className="mt-4">
+                            <Food category={lunch} />
+                        </Row>
+                    </Tab>
+                    <Tab eventKey="dinner" title="Dinner">
+                        <Row className="mt-4">
+                            <Food category={dinner} />
+                        </Row>
+                    </Tab>
+                    <Tab eventKey="all" title="All Foodes">
+                        <Row className="mt-4">
+                            <Food category={foods} />
+                        </Row>
+                    </Tab>
+                </Tabs> :
+                <div class="d-flex justify-content-center py-5">
+                    <div class="spinner-border" role="status"></div>
+                </div>
+            }
             {
                 cart.length>0 && 
                 <Link to="/cart">

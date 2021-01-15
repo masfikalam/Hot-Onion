@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Col, Row } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
@@ -8,6 +8,10 @@ const Cart = () => {
     const cart = useSelector(state => state.cart);
     const dispatch = useDispatch();
     const history = useHistory();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
 
     // calculations
     const dishes = cart.reduce((sum, dish) => sum + dish.count, 0);
