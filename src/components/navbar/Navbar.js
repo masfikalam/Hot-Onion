@@ -40,6 +40,9 @@ const TopNav = () => {
                         <Button variant="danger">Sign In</Button>
                     </Link>
                 }
+                <Link className="d-none d-sm-block ml-3" to="/admin">
+                    <Button variant="dark">Admin</Button>
+                </Link>
             </Nav>
         </Navbar>
     );

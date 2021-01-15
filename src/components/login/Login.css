@@ -7,6 +7,9 @@
     justify-content: center;
     align-items: center;
 }
+#login h3 {
+    color: #e9004d;
+}
 #login #loginForm {
     width: 300px;
 }

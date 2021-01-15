@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { db } from '../../Firebase/Firebase';
 import './Admin.css'
 
@@ -35,32 +36,33 @@ const Admin = () => {
     }
 
     return (
-        <section id="admin" className="py-5 container">
-            <div className="row">
-                <div className="col-md-6 mb-5 mb-md-0">
-                    <h3 className="text-center text-success">Add Foods</h3>
-                    <form id="foodForm" onSubmit={addFood}>
-                        <input name="name" type="text" placeholder="Food name" className="form-control my-2" required />
-                        <div className="form-group my-2">
-                            <select name="category" className="form-control" required>
-                                <option>breakfast</option>
-                                <option>lunch</option>
-                                <option>dinner</option>
-                            </select>
-                        </div>
-                        <input name="ingredients" type="text" placeholder="Ingredients (seperated with comma)" className="form-control my-2" required />
-                        <input name="price" type="number" className="form-control my-2" placeholder="Food price" required />
-                        <input name="photo" id="photoID" type="file" placeholder="Food image" accept="image/*" className="my-2" required />
-                        <input type="submit" className="btn btn-danger btn-block w-50 mx-auto my-3" value="Add Food" />
-                        <p className="mt-0 mb-5 text-center text-success" id="success"></p>
-                    </form>
+        <section id="admin" className="py-5">
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-6 mb-5 mb-md-0">
+                        <h3 className="text-center text-success">Add Foods</h3>
+                        <form id="foodForm" onSubmit={addFood}>
+                            <input name="name" type="text" placeholder="Food name" className="form-control my-2" required />
+                            <div className="form-group my-2">
+                                <select name="category" className="form-control" required>
+                                    <option>breakfast</option>
+                                    <option>lunch</option>
+                                    <option>dinner</option>
+                                </select>
+                            </div>
+                            <input name="ingredients" type="text" placeholder="Ingredients (seperated with comma)" className="form-control my-2" required />
+                            <input name="price" type="number" className="form-control my-2" placeholder="Food price" required />
+                            <input name="photo" id="photoID" type="file" placeholder="Food image" accept="image/*" className="my-2" required />
+                            <input type="submit" className="btn btn-danger btn-block w-50 mx-auto my-3" value="Add Food" />
+                            <p className="mt-0 mb-5 text-center text-success" id="success"></p>
+                        </form>
+                    </div>
+                    <div className="col-md-6 text-center">
+                        <h3 className="text-success mb-4">Update Foods</h3>
+                        <Link className="btn btn-success" to="/update">Edit Details</Link>
+                    </div>
                 </div>
-                <div className="col-md-6 text-center">
-                    <h3 className="text-success mb-4">Update Foods</h3>
-                    <button className="btn btn-success">Edit Details</button>
-                </div>
-            </div>
-            
+            </div>            
         </section>
     );
 };

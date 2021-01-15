@@ -14,6 +14,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { db } from './Firebase/Firebase';
 import './App.css';
 import Admin from './components/admin/Admin';
+import Update from './components/update/Update';
 export const UserContext = createContext();
 
 function App() {
@@ -39,10 +40,11 @@ function App() {
             <Header /><Foods foods={foods} /><Footer />
           </Route>
           <Route path="/login" component={Login} />
+          <Route path="/admin" component={Admin} />
           <Route path="/cart" component={Cart} />
-          <PrivateRoute path="/admin">
-            <Admin />
-          </PrivateRoute>
+          <Route path="/update">
+            <Update foods={foods} />
+          </Route>
           <PrivateRoute path="/checkout">
             <Checkout />
           </PrivateRoute>

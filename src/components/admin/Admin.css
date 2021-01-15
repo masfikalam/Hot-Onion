@@ -1,3 +1,7 @@
+section#admin {
+    background-color: #fcf4e0;
+    min-height: 90vh;
+}
 section#admin #foodForm{
     max-width: 500px;
     margin: auto;
